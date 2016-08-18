@@ -4,16 +4,17 @@ STB library-based font packing tool and 3d font geometry generator for TTF fonts
 This is my attempt at a simple font-packing, texture and geometry data generating tool for use in 3D rendering of text.
 
 ## Features
-- stb libs generate a bitmap representing the rendered font for a set of code points.  
-- the texture is created by sorting the glyphs by size and packing them into a bitmap by bin-packing using a tree to partition the texture space. 
-- geometry/uv data is generated to render a string from the glyph data and texture atlas.  
-- implementation can be modified to serialize/restore the necessary glyph data in order to pre-generate a texture/atlas
-- currently only uses std::sort from stl (i should get around to just writing a quick replacement).
+- STB libs used to gather font information and render to the texture.
+- Font texture is created by packing glyps into a bitmap using a tree-based bin packing algorithm to partition the space.
+- Geometry/uv data is generated to render a string from the glyph data and texture atlas using proper kerning and line advance.  
+- Implementation can be modified to serialize/restore the necessary glyph data in order to utilize a pre-generated texture and atlas.
+- Currently only uses std::sort from stl to organize glyphs by size for efficient packing (i should get around to just writing a quick drop-replacement).  
+- Includes a basic hash table for storing kerning advance for a given glyph pair.
 
 ### Example
 ![Example Image](/example.png?raw=true "Example image")
 
- Example generated texture using Windows Arial font @ 96.0f pixel height for glyphs packed into a 512x512 single-channel texture.
+ Example generated texture using the Windows Arial font at 96.0f pixel max glyph height packed into a 512x512 single-channel image.
 
 
 
