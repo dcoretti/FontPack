@@ -11,7 +11,7 @@ This is my attempt at a simple font-packing, texture and geometry data generatin
 - currently only uses std::sort from stl (i should get around to just writing a quick replacement).
 
 ### Example
-![Example Image](/sample.png?raw=true "Example image")
+![Example Image](/example.png?raw=true "Example image")
 Example generated texture using Windows Arial font @ 96.0f pixel height for glyphs packed into a 512x512 single-channel texture.
 
 **Note** - requires stb_truetype and stb_image_write from the [nothings/stb](https://github.com/nothings/stb) library
