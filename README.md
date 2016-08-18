@@ -12,15 +12,17 @@ This is my attempt at a simple font-packing, texture and geometry data generatin
 
 ### Example
 ![Example Image](/example.png?raw=true "Example image")
-Example generated texture using Windows Arial font @ 96.0f pixel height for glyphs packed into a 512x512 single-channel texture.
 
-**Note** - requires stb_truetype and stb_image_write from the [nothings/stb](https://github.com/nothings/stb) library
+ Example generated texture using Windows Arial font @ 96.0f pixel height for glyphs packed into a 512x512 single-channel texture.
+
+
 
 ## Use
-1. #include "font.h"
-2. Load a texture: loadFontToTexture(f, "C:/Windows/Fonts/Arial.ttf", texture, texW, texH, ' ', '~');
-3. Generate some geometry for some text: fontTextToGeometry(font, "Hi.", &geometry, &uv, &vertices);
-4. Get OpenGL or something to render it to the screen!
+1. Grab stb_truetype and stb_image_write from the [nothings/stb](https://github.com/nothings/stb) repo.
+2. #include "font.h"
+3. Load a texture: loadFontToTexture(f, "C:/Windows/Fonts/Arial.ttf", texture, texW, texH, ' ', '~');
+4. Generate some geometry for some text: fontTextToGeometry(font, "Hi.", &geometry, &uv, &vertices);
+5. Get OpenGL or something to render it to the screen!
 
 
 
