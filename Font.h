@@ -54,6 +54,11 @@ namespace FontPack {
 			glyphs(nullptr) {
 		}
 
+		~Font() {
+			delete[] glyphs;
+			delete[] kernTable;
+		}
+
 		int textureW;
 		int textureH;
 		float scaleX;
