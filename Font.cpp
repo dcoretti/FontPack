@@ -212,13 +212,16 @@ namespace FontPack {
 		std::sort(font.glyphs, font.glyphs + numGlyphs,
 			[](Glyph &a, Glyph &b) -> bool { return a.codePoint < b.codePoint; });
 
+		font.kernTable = new int[numGlyphs * numGlyphs]();
 		for (int i = 0; i < numGlyphs; i++) {
 			for (int j = 0; j < numGlyphs; j++) {
 				int kernAdvance = stbtt_GetCodepointKernAdvance(&fontInfo, font.glyphs[i].codePoint, font.glyphs[j].codePoint);
 				DBG_ASSERT(font.glyphs[i].codePoint < INT16_MAX && font.glyphs[i].codePoint > INT16_MIN, "code point out of bounds");
 				DBG_ASSERT(font.glyphs[j].codePoint < INT16_MAX && font.glyphs[i].codePoint > INT16_MIN, "code point out of bounds");
 
-				font.kernTable.put(getCodePointPairKey(font.glyphs[i].codePoint, font.glyphs[j].codePoint), kernAdvance);
+				int cp1 = font.glyphs[i].codePoint - font.startCodePoint;
+				int cp2 = font.glyphs[j].codePoint - font.startCodePoint;
+				font.kernTable[cp1 * numGlyphs + cp2] = kernAdvance;
 			}
 		}
 		DBG_ASSERT(stbi_write_png("out.png", texW, texH, 1, texture, texW) > 0, "Unable to write file!");
@@ -236,6 +239,7 @@ namespace FontPack {
 
 	//output needed is to generate a set of geometry, uv data to be sent to the gpu
 	void fontTextToGeometry(Font &f, char *text, Vec3 **geometryData, Vec2 **uvData, int *numVertices) {
+		int numGlyphs = f.endCodePoint - f.startCodePoint;
 		int len = 0;
 		for (char * c = text; *c; c++, len++) {
 		}
@@ -276,8 +280,10 @@ namespace FontPack {
 			startX += ((glyph.advanceWidth - glyph.leftSideBearing)* f.scaleX);//glyph.width;
 			if ((c + 1)) {
 				//stbtt_GetCodepointKernAdvance(&, word[i], word[i + 1]);
-				int kernAdvance = f.kernTable.get(getCodePointPairKey(*c, *(c + 1)));
-				kernAdvance = kernAdvance != HashTablei::emptyVal ? kernAdvance : 0;
+				int cp1 = *c - f.startCodePoint;
+				int cp2 = *(c+1) - f.startCodePoint;
+
+				int kernAdvance = f.kernTable[cp1 * numGlyphs + cp2];
 				startX += (kernAdvance * f.scaleX);
 			}
 		}

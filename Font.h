@@ -1,20 +1,19 @@
 #pragma once
 #pragma once
 
-#include "HashTablei.h"
 #include <cstdint>
 
-// FontPack
-// By Danny Coretti (dcoretti@gmail.com)
-// Relatively simple font packing and rendering for 3D graphics API usage such as OpenGL
-// Uses stb_truetype and stb_image_write for TTF font analysis/bitmap rendering, and file saving respectively.
-// 
-// -STB libs generate a bitmap representing the rendered font for a set of code points.  
-// -The texture is created by sorting the glyphs by size and packing them into a bitmap by bin-packing 
-// using a tree to partition the texture space. 
-// -Geometry/UV data is generated to render a string from the glyph data and texture atlas.  
-// -Implementation can be modified to serialize/restore the necessary glyph data in order to pre-generate a texture/atlas
-// -Currently only uses std::sort from stl (I should get around to just writing a quick replacement).
+ //fontpack
+ //by danny coretti (dcoretti@gmail.com)
+ //relatively simple font packing and rendering for 3d graphics api usage such as opengl
+ //uses stb_truetype and stb_image_write for ttf font analysis/bitmap rendering, and file saving respectively.
+ //
+ //-stb libs generate a bitmap representing the rendered font for a set of code points.  
+ //-the texture is created by sorting the glyphs by size and packing them into a bitmap by bin-packing 
+ //using a tree to partition the texture space. 
+ //-geometry/uv data is generated to render a string from the glyph data and texture atlas.  
+ //-implementation can be modified to serialize/restore the necessary glyph data in order to pre-generate a texture/atlas
+ //-currently only uses std::sort from stl (i should get around to just writing a quick replacement).
 namespace FontPack {
 	struct Vec3 {
 		float x;
@@ -45,7 +44,7 @@ namespace FontPack {
 	};
 
 	struct Font {
-		Font() : kernTable(512),	// TODO tune this to the number of code point pairs as this will likely resize a few times as is
+		Font() :
 			scaleX(1.0f),
 			scaleY(1.0f),
 			heightPixels(0.0f),
@@ -70,7 +69,7 @@ namespace FontPack {
 		const int apron = 1;
 
 		Glyph *glyphs{ nullptr };
-		HashTablei kernTable;
+		int *kernTable;
 	};
 
 
