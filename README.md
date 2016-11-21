@@ -8,8 +8,7 @@ This is my attempt at a simple font-packing, texture and geometry data generatin
 - Font texture is created by packing glyps into a bitmap using a tree-based bin packing algorithm to partition the space.
 - Geometry/uv data is generated to render a string from the glyph data and texture atlas using proper kerning and line advance.  
 - Implementation can be modified to serialize/restore the necessary glyph data in order to utilize a pre-generated texture and atlas.
-- Currently only uses std::sort from stl to organize glyphs by size for efficient packing (i should get around to just writing a quick drop-replacement).  
-- Includes a basic hash table for storing kerning advance for a given glyph pair.
+- Currently only uses std::sort from stl to organize glyphs by size for efficient packing (i should get around to just writing a quick drop-in replacement).  
 
 ### Example
 ![Example Image](/example.png?raw=true "Example image")
